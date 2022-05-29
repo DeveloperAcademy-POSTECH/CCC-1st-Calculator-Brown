@@ -1,16 +1,15 @@
-//
-//  ContentView.swift
-//  CalculatorClone
-//
-//  Created by LeeJiSoo on 2022/05/29.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text("0")
+                .font(.system(size: 46))
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.all, 16)
+            CalculatorButton()
+        }
+        
     }
 }
 

@@ -12,6 +12,8 @@
 		38A6E2E528432318007CF7E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38A6E2E428432318007CF7E0 /* Assets.xcassets */; };
 		38A6E2E828432318007CF7E0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38A6E2E728432318007CF7E0 /* Preview Assets.xcassets */; };
 		38A6E2F328433202007CF7E0 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 38A6E2F228433202007CF7E0 /* .swiftlint.yml */; };
+		38A6E2F5284341CC007CF7E0 /* CalculatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E2F4284341CC007CF7E0 /* CalculatorButton.swift */; };
+		38A6E2F728435638007CF7E0 /* ColorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E2F628435638007CF7E0 /* ColorData.swift */; };
 		E44E6B022D47089FC049D6B0 /* Pods_CalculatorClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC484041F64FE1FBDA02501A /* Pods_CalculatorClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,8 @@
 		38A6E2E428432318007CF7E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38A6E2E728432318007CF7E0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38A6E2F228433202007CF7E0 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		38A6E2F4284341CC007CF7E0 /* CalculatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButton.swift; sourceTree = "<group>"; };
+		38A6E2F628435638007CF7E0 /* ColorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorData.swift; sourceTree = "<group>"; };
 		CC484041F64FE1FBDA02501A /* Pods_CalculatorClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalculatorClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44E486E6391EAE1D6CA7C7C /* Pods-CalculatorClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalculatorClone.release.xcconfig"; path = "Target Support Files/Pods-CalculatorClone/Pods-CalculatorClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,8 +73,10 @@
 		38A6E2DF28432317007CF7E0 /* CalculatorClone */ = {
 			isa = PBXGroup;
 			children = (
+				38A6E2F4284341CC007CF7E0 /* CalculatorButton.swift */,
 				38A6E2E028432317007CF7E0 /* CalculatorCloneApp.swift */,
 				38A6E2E228432317007CF7E0 /* ContentView.swift */,
+				38A6E2F628435638007CF7E0 /* ColorData.swift */,
 				38A6E2E428432318007CF7E0 /* Assets.xcassets */,
 				38A6E2E628432318007CF7E0 /* Preview Content */,
 			);
@@ -211,7 +217,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38A6E2E328432317007CF7E0 /* ContentView.swift in Sources */,
+				38A6E2F5284341CC007CF7E0 /* CalculatorButton.swift in Sources */,
 				38A6E2E128432317007CF7E0 /* CalculatorCloneApp.swift in Sources */,
+				38A6E2F728435638007CF7E0 /* ColorData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
