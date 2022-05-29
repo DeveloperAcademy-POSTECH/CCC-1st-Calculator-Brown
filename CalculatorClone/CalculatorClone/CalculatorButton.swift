@@ -45,13 +45,13 @@ struct CalculatorButton: View {
     var body: some View {
         VStack {
             ForEach(buttons, id: \.self) { row in
-                HStack {
+                HStack(spacing: 12) {
                     ForEach(row, id: \.self) { content in
                         Button(action: {
                             
                         }, label: {
                             Text(content.rawValue)
-                                .font(.system(size: 32))
+                                .font(.system(size: 34))
                                 .frame(width: self.buttonWidth(content: content), height: self.buttonHeight())
                                 .background(content.buttonColor)
                                 .foregroundColor(.white)
@@ -59,19 +59,20 @@ struct CalculatorButton: View {
                         })
                     }
                 }
+                .padding(.bottom, 6)
             }
         }
     }
-    
+
     func buttonWidth(content: CalculatorButtonContent) -> CGFloat {
         if content == .zero {
-            return ((UIScreen.main.bounds.width - (12*4)) / 4) * 2
+            return (((UIScreen.main.bounds.width - (16*4)) / 4) * 2) + 12
         }
-        return ((UIScreen.main.bounds.width - (12*4)) / 4)
+        return ((UIScreen.main.bounds.width - (16*4)) / 4)
     }
     
     func buttonHeight() -> CGFloat {
-        return ((UIScreen.main.bounds.width - (12*4)) / 4)
+        return ((UIScreen.main.bounds.width - (16*4)) / 4)
     }
 }
 

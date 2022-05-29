@@ -2,14 +2,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("0")
-                .font(.system(size: 46))
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.all, 16)
-            CalculatorButton()
+        ZStack {
+            Color.black
+                .ignoresSafeArea(.all)
+            VStack {
+                Spacer()
+                Text("0")
+                    .bold()
+                    .foregroundColor(.white)
+                    .font(.system(size: 80))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.all, 16)
+                CalculatorButton()
+            }
         }
-        
     }
 }
 
