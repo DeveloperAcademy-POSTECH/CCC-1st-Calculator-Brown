@@ -8,7 +8,6 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 Text("0")
-                    .bold()
                     .foregroundColor(.white)
                     .font(.system(size: 80))
                     .frame(maxWidth: .infinity, alignment: .trailing)
