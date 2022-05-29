@@ -11,15 +11,15 @@ enum CalculatorButtonContent: String {
     case eight = "8"
     case nine = "9"
     case zero = "0"
-    case plus = "+"
-    case minus = "-"
-    case divide = "/"
-    case multiply = "x"
-    case percent = "%"
-    case equal = "="
-    case clear = "AC"
-    case dot = "."
-    case negative = "+/-"
+    case plus = "plus"
+    case minus = "minus"
+    case divide = "divide"
+    case multiply = "multiply"
+    case percent = "percent"
+    case equal = "equal"
+    case clear = "clear"
+    case dot = "dot"
+    case negative = "negative"
     
     var buttonColor: Color {
         switch self {
@@ -50,12 +50,9 @@ struct CalculatorButton: View {
                         Button(action: {
                             
                         }, label: {
-                            Text(content.rawValue)
-                                .font(.system(size: 34))
+                            Image(content.rawValue)
+                                .resizable()
                                 .frame(width: self.buttonWidth(content: content), height: self.buttonHeight())
-                                .background(content.buttonColor)
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
                         })
                     }
                 }
