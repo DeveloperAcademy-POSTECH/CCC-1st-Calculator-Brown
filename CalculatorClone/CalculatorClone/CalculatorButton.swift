@@ -83,8 +83,10 @@ struct CalculatorButton: View {
             if displayValue == "0" {
                 displayValue = num
             } else {
-                if displayValue.count != 9 {
-                    displayValue = "\(displayValue)\(num)"
+                if displayValue.components(separatedBy: ",").joined().count != 9 {
+                    displayValue = displayValue.components(separatedBy: ",").joined()
+                    displayValue += num
+                    displayValue = numberFormat(number: Int(displayValue)!)
                 }
                 
             }

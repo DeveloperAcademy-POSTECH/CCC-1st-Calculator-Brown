@@ -10,7 +10,7 @@ struct ContentView: View {
                 Spacer()
                 Text("\(displayValue)")
                     .foregroundColor(.white)
-                    .font(.system(size: 65))
+                    .font(.system(size: 58))
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.all, 16)
                 CalculatorButton(displayValue: $displayValue)
