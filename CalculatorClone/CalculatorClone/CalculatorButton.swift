@@ -48,36 +48,34 @@ struct CalculatorButton: View {
         case .divide, .multiply, .minus, .plus, .equal:
             if button == .divide {
                 currentOperator = .divide
-                value = Int(displayValue) ?? 0
-                print(value)
-                print(type(of: value))
+                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             } else if button == .multiply {
                 currentOperator = .multiply
-                value = Int(displayValue) ?? 0
-                print(value)
+                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             } else if button == .minus {
                 currentOperator = .minus
-                value = Int(displayValue) ?? 0
-                print(value)
+                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             } else if button == .plus {
                 currentOperator = .plus
-                value = Int(displayValue) ?? 0
-                print(value)
+                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             } else if button == .equal {
                 currentOperator = .equal
-                value = Int(displayValue) ?? 0
-                print(value)
+                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             }
         case .clear:
-            displayValue = "0"
-            currentOperator = .none
-            value = Int(displayValue) ?? 0
-            print(value)
+            if currentOperator == .none {
+                displayValue = "0"
+                value = 0
+            } else {
+                currentOperator = .none
+                displayValue = "0"
+            }
         case .negative:
+            value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
             value *= -1
-            print(value)
+            displayValue = numberFormat(number: value)
         case .percent:
-            break // value*0.01
+            value /= 100
         default:
             let num = button.rawValue
             if displayValue == "0" {
@@ -87,6 +85,7 @@ struct CalculatorButton: View {
                     displayValue = displayValue.components(separatedBy: ",").joined()
                     displayValue += num
                     displayValue = numberFormat(number: Int(displayValue)!)
+                    print(value)
                 }
                 
             }
