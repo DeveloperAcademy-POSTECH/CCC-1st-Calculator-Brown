@@ -1,18 +1,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var displayValue = "0"
     var body: some View {
         ZStack {
             Color.black
                 .ignoresSafeArea(.all)
             VStack {
                 Spacer()
-                Text("0")
+                Text("\(displayValue)")
                     .foregroundColor(.white)
-                    .font(.system(size: 80))
+                    .font(.system(size: 65))
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.all, 16)
-                CalculatorButton()
+                CalculatorButton(displayValue: $displayValue)
             }
         }
     }

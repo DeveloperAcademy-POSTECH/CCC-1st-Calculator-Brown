@@ -33,7 +33,15 @@ enum CalculatorButtonContent: String {
     }
 }
 
+enum Operator {
+    case divide, multiply, minus, plus, equal, none
+}
+
 struct CalculatorButton: View {
+    @State var currentOperator: Operator = .none
+    @State var value = 0
+    @Binding var displayValue: String
+    
     let buttons: [[CalculatorButtonContent]] = [
         [.clear, .negative, .percent, .divide],
         [.seven, .eight, .nine, .multiply],
@@ -48,7 +56,7 @@ struct CalculatorButton: View {
                 HStack(spacing: 12) {
                     ForEach(row, id: \.self) { content in
                         Button(action: {
-                            
+                            tappedButton(button: content)
                         }, label: {
                             Image(content.rawValue)
                                 .resizable()
@@ -60,7 +68,7 @@ struct CalculatorButton: View {
             }
         }
     }
-
+    
     func buttonWidth(content: CalculatorButtonContent) -> CGFloat {
         if content == .zero {
             return (((UIScreen.main.bounds.width - (16*4)) / 4) * 2) + 12
@@ -71,10 +79,58 @@ struct CalculatorButton: View {
     func buttonHeight() -> CGFloat {
         return ((UIScreen.main.bounds.width - (16*4)) / 4)
     }
+    
+    func tappedButton(button: CalculatorButtonContent) {
+        switch button {
+        case .divide, .multiply, .minus, .plus, .equal:
+            if button == .divide {
+                currentOperator = .divide
+                value = Int(displayValue) ?? 0
+                print(value)
+                print(type(of: value))
+            } else if button == .multiply {
+                currentOperator = .multiply
+                value = Int(displayValue) ?? 0
+                print(value)
+            } else if button == .minus {
+                currentOperator = .minus
+                value = Int(displayValue) ?? 0
+                print(value)
+            } else if button == .plus {
+                currentOperator = .plus
+                value = Int(displayValue) ?? 0
+                print(value)
+            } else if button == .equal {
+                currentOperator = .equal
+                value = Int(displayValue) ?? 0
+                print(value)
+            }
+        case .clear:
+            displayValue = "0"
+            currentOperator = .none
+            value = Int(displayValue) ?? 0
+            print(value)
+        case .negative:
+            value *= -1
+            print(value)
+        case .percent:
+            break // value*0.01
+        default:
+            let num = button.rawValue
+            if displayValue == "0" {
+                displayValue = num
+            } else {
+                if displayValue.count != 9 {
+                    displayValue = "\(displayValue)\(num)"
+                }
+                
+            }
+        }
+    }
 }
 
 struct CalculatorButton_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorButton()
+        CalculatorButton(displayValue: .constant("1"))
     }
 }
