@@ -3,7 +3,11 @@ import SwiftUI
 struct CalculatorButton: View {
     @State var currentOperator: Operator = .none
     @State var value = 0
-    @Binding var displayValue: String
+    @State var result = ""
+    @State var firstOperand = ""
+    @State var secondOperand = ""
+    @State var displayValue = ""
+    @Binding var outputLabel: String
     
     let buttons: [[CalculatorButtonContent]] = [
         [.clear, .negative, .percent, .divide],
@@ -19,7 +23,7 @@ struct CalculatorButton: View {
                 HStack(spacing: 12) {
                     ForEach(row, id: \.self) { content in
                         Button(action: {
-                            tappedButton(button: content)
+                            tapButton(button: content)
                         }, label: {
                             Image(content.rawValue)
                                 .resizable()
@@ -43,58 +47,144 @@ struct CalculatorButton: View {
         return ((UIScreen.main.bounds.width - (16*4)) / 4)
     }
     
-    func tappedButton(button: CalculatorButtonContent) {
+    func tapButton(button: CalculatorButtonContent) {
         switch button {
-        case .divide, .multiply, .minus, .plus, .equal:
-            if button == .divide {
-                currentOperator = .divide
-                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            } else if button == .multiply {
-                currentOperator = .multiply
-                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            } else if button == .minus {
-                currentOperator = .minus
-                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            } else if button == .plus {
-                currentOperator = .plus
-                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            } else if button == .equal {
-                currentOperator = .equal
-                value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            }
-        case .clear:
-            if currentOperator == .none {
-                displayValue = "0"
-                value = 0
-            } else {
-                currentOperator = .none
-                displayValue = "0"
-            }
-        case .negative:
-            value = Int(displayValue.components(separatedBy: ",").joined()) ?? 0
-            value *= -1
-            displayValue = numberFormat(number: value)
+        case .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .zero:
+            tapNumberButton(button: button)
+        case .plus:
+            tapPlusButton()
+        case .minus:
+            tapMinusButton()
+        case .divide:
+            tapDivideButton()
+        case .multiply:
+            tapMultiplyButton()
         case .percent:
-            value /= 100
-        default:
-            let num = button.rawValue
-            if displayValue == "0" {
-                displayValue = num
+            tapPercentButton()
+        case .equal:
+            tapEqualButton()
+        case .clear:
+            tapClearButton()
+        case .dot:
+            tapDotButton()
+        case .negative:
+            tapNegativeButton()
+        }
+    }
+
+    func tapNumberButton(button: CalculatorButtonContent) {
+        var numberValue = button.rawValue
+        if displayValue.count < 9 {
+            if displayValue == "-0" {
+                displayValue = displayValue.components(separatedBy: "0").joined()
+                displayValue += numberValue
+                outputLabel = displayValue
             } else {
-                if displayValue.components(separatedBy: ",").joined().count != 9 {
-                    displayValue = displayValue.components(separatedBy: ",").joined()
-                    displayValue += num
-                    displayValue = numberFormat(number: Int(displayValue)!)
-                    print(value)
+                displayValue += numberValue
+                outputLabel = displayValue
+            }
+        }
+    }
+
+    func tapClearButton() {
+        displayValue = ""
+        firstOperand = ""
+        secondOperand = ""
+        result = ""
+        currentOperator = .none
+        outputLabel = "0"
+    }
+
+    func tapNegativeButton() {
+        if outputLabel == "0" {
+            displayValue = "-0"
+            outputLabel = displayValue
+        } else if !outputLabel.contains("-") {
+            displayValue = "-\(displayValue)"
+            outputLabel = displayValue
+        } else if outputLabel.contains("-") {
+            displayValue = displayValue.components(separatedBy: "-").joined()
+            outputLabel = displayValue
+        }
+    }
+
+    func tapPercentButton() {
+        guard var displayValue = Double(displayValue) else { return }
+        guard var outputLabel = Double(outputLabel) else { return }
+        
+        displayValue *= 0.01
+        outputLabel = displayValue
+        self.displayValue = String(displayValue)
+        self.outputLabel = String(outputLabel)
+    }
+
+    func tapDivideButton() {
+        operation(.divide)
+    }
+
+    func tapMultiplyButton() {
+        operation(.multiply)
+    }
+
+    func tapMinusButton() {
+        operation(.minus)
+    }
+
+    func tapPlusButton() {
+        operation(.plus)
+    }
+
+    func tapEqualButton() {
+        operation(currentOperator)
+    }
+
+    func tapDotButton() {
+        if displayValue.count < 9, !displayValue.contains(".") {
+            displayValue += displayValue.isEmpty ? "0." : "."
+            outputLabel = displayValue
+        }
+    }
+
+    func operation(_ operation: Operator) {
+        if self.currentOperator != .none {
+            if !displayValue.isEmpty {
+                secondOperand = displayValue
+                displayValue = ""
+                
+                guard let firstOperand = Double(firstOperand) else { return }
+                guard let secondOperand = Double(secondOperand) else { return }
+                
+                switch currentOperator {
+                case .divide:
+                    result = "\(firstOperand / secondOperand)"
+                case .multiply:
+                    result = "\(firstOperand * secondOperand)"
+                case .minus:
+                    result = "\(firstOperand - secondOperand)"
+                case .plus:
+                    result = "\(firstOperand + secondOperand)"
+                default:
+                    break
                 }
                 
+                if let result = Double(result), result.truncatingRemainder(dividingBy: 1) == 0 {
+                    self.result = "\(Int(result))"
+                }
+                
+                self.firstOperand = self.result
+                outputLabel = result
             }
+            currentOperator = operation
+        } else {
+            firstOperand = displayValue
+            currentOperator = operation
+            displayValue = ""
         }
     }
 }
 
 struct CalculatorButton_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorButton(displayValue: .constant("1"))
+        CalculatorButton(outputLabel: .constant("1"))
     }
 }
