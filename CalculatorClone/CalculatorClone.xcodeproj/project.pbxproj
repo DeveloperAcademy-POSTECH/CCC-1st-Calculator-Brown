@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38A195872844EB7800ABB9A7 /* ButtonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A195862844EB7800ABB9A7 /* ButtonData.swift */; };
+		38A1958E2844FE2200ABB9A7 /* NumberFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A1958D2844FE2200ABB9A7 /* NumberFormat.swift */; };
 		38A6E2E128432317007CF7E0 /* CalculatorCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E2E028432317007CF7E0 /* CalculatorCloneApp.swift */; };
 		38A6E2E328432317007CF7E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E2E228432317007CF7E0 /* ContentView.swift */; };
 		38A6E2E528432318007CF7E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38A6E2E428432318007CF7E0 /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		166AA91C9B43A841194928E7 /* Pods-CalculatorClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalculatorClone.debug.xcconfig"; path = "Target Support Files/Pods-CalculatorClone/Pods-CalculatorClone.debug.xcconfig"; sourceTree = "<group>"; };
+		38A195862844EB7800ABB9A7 /* ButtonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonData.swift; sourceTree = "<group>"; };
+		38A1958D2844FE2200ABB9A7 /* NumberFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormat.swift; sourceTree = "<group>"; };
 		38A6E2DD28432317007CF7E0 /* CalculatorClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculatorClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A6E2E028432317007CF7E0 /* CalculatorCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCloneApp.swift; sourceTree = "<group>"; };
 		38A6E2E228432317007CF7E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +55,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		38A1958C2844F7BF00ABB9A7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				38A6E2F628435638007CF7E0 /* ColorData.swift */,
+				38A195862844EB7800ABB9A7 /* ButtonData.swift */,
+				38A1958D2844FE2200ABB9A7 /* NumberFormat.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		38A6E2D428432317007CF7E0 = {
 			isa = PBXGroup;
 			children = (
@@ -73,12 +87,11 @@
 		38A6E2DF28432317007CF7E0 /* CalculatorClone */ = {
 			isa = PBXGroup;
 			children = (
+				38A1958C2844F7BF00ABB9A7 /* Data */,
 				38A6E2F4284341CC007CF7E0 /* CalculatorButton.swift */,
 				38A6E2E028432317007CF7E0 /* CalculatorCloneApp.swift */,
 				38A6E2E228432317007CF7E0 /* ContentView.swift */,
-				38A6E2F628435638007CF7E0 /* ColorData.swift */,
 				38A6E2E428432318007CF7E0 /* Assets.xcassets */,
-				38A6E2E628432318007CF7E0 /* Preview Content */,
 			);
 			path = CalculatorClone;
 			sourceTree = "<group>";
@@ -94,6 +107,7 @@
 		983CBFA2CBF76E5BC9CFF2CE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				38A6E2E628432318007CF7E0 /* Preview Content */,
 				166AA91C9B43A841194928E7 /* Pods-CalculatorClone.debug.xcconfig */,
 				E44E486E6391EAE1D6CA7C7C /* Pods-CalculatorClone.release.xcconfig */,
 			);
@@ -216,8 +230,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38A195872844EB7800ABB9A7 /* ButtonData.swift in Sources */,
 				38A6E2E328432317007CF7E0 /* ContentView.swift in Sources */,
 				38A6E2F5284341CC007CF7E0 /* CalculatorButton.swift in Sources */,
+				38A1958E2844FE2200ABB9A7 /* NumberFormat.swift in Sources */,
 				38A6E2E128432317007CF7E0 /* CalculatorCloneApp.swift in Sources */,
 				38A6E2F728435638007CF7E0 /* ColorData.swift in Sources */,
 			);
@@ -348,7 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CalculatorClone/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 82DRSFKFS9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -378,7 +394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CalculatorClone/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 82DRSFKFS9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

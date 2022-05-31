@@ -1,39 +1,14 @@
 import SwiftUI
 
-enum CalculatorButtonContent: String {
-    case one = "1"
-    case two = "2"
-    case three = "3"
-    case four = "4"
-    case five = "5"
-    case six = "6"
-    case seven = "7"
-    case eight = "8"
-    case nine = "9"
-    case zero = "0"
-    case plus = "plus"
-    case minus = "minus"
-    case divide = "divide"
-    case multiply = "multiply"
-    case percent = "percent"
-    case equal = "equal"
-    case clear = "clear"
-    case dot = "dot"
-    case negative = "negative"
-    
-    var buttonColor: Color {
-        switch self {
-        case .clear, .negative, .percent:
-            return .subFunctionColor
-        case .divide, .multiply, .minus, .plus, .equal:
-            return .operatorColor
-        default:
-            return .numColor
-        }
-    }
-}
-
 struct CalculatorButton: View {
+    @State var currentOperator: Operator = .none
+    @State var value = 0
+    @State var result = ""
+    @State var firstOperand = ""
+    @State var secondOperand = ""
+    @State var displayValue = ""
+    @Binding var outputLabel: String
+    
     let buttons: [[CalculatorButtonContent]] = [
         [.clear, .negative, .percent, .divide],
         [.seven, .eight, .nine, .multiply],
@@ -48,7 +23,7 @@ struct CalculatorButton: View {
                 HStack(spacing: 12) {
                     ForEach(row, id: \.self) { content in
                         Button(action: {
-                            
+                            tapButton(button: content)
                         }, label: {
                             Image(content.rawValue)
                                 .resizable()
@@ -60,7 +35,7 @@ struct CalculatorButton: View {
             }
         }
     }
-
+    
     func buttonWidth(content: CalculatorButtonContent) -> CGFloat {
         if content == .zero {
             return (((UIScreen.main.bounds.width - (16*4)) / 4) * 2) + 12
@@ -71,10 +46,145 @@ struct CalculatorButton: View {
     func buttonHeight() -> CGFloat {
         return ((UIScreen.main.bounds.width - (16*4)) / 4)
     }
+    
+    func tapButton(button: CalculatorButtonContent) {
+        switch button {
+        case .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .zero:
+            tapNumberButton(button: button)
+        case .plus:
+            tapPlusButton()
+        case .minus:
+            tapMinusButton()
+        case .divide:
+            tapDivideButton()
+        case .multiply:
+            tapMultiplyButton()
+        case .percent:
+            tapPercentButton()
+        case .equal:
+            tapEqualButton()
+        case .clear:
+            tapClearButton()
+        case .dot:
+            tapDotButton()
+        case .negative:
+            tapNegativeButton()
+        }
+    }
+
+    func tapNumberButton(button: CalculatorButtonContent) {
+        var numberValue = button.rawValue
+        if displayValue.count < 9 {
+            if displayValue == "-0" {
+                displayValue = displayValue.components(separatedBy: "0").joined()
+                displayValue += numberValue
+                outputLabel = displayValue
+            } else {
+                displayValue += numberValue
+                outputLabel = displayValue
+            }
+        }
+    }
+
+    func tapClearButton() {
+        displayValue = ""
+        firstOperand = ""
+        secondOperand = ""
+        result = ""
+        currentOperator = .none
+        outputLabel = "0"
+    }
+
+    func tapNegativeButton() {
+        if outputLabel == "0" {
+            displayValue = "-0"
+            outputLabel = displayValue
+        } else if !outputLabel.contains("-") {
+            displayValue = "-\(displayValue)"
+            outputLabel = displayValue
+        } else if outputLabel.contains("-") {
+            displayValue = displayValue.components(separatedBy: "-").joined()
+            outputLabel = displayValue
+        }
+    }
+
+    func tapPercentButton() {
+        guard var displayValue = Double(displayValue) else { return }
+        guard var outputLabel = Double(outputLabel) else { return }
+        
+        displayValue *= 0.01
+        outputLabel = displayValue
+        self.displayValue = String(displayValue)
+        self.outputLabel = String(outputLabel)
+    }
+
+    func tapDivideButton() {
+        operation(.divide)
+    }
+
+    func tapMultiplyButton() {
+        operation(.multiply)
+    }
+
+    func tapMinusButton() {
+        operation(.minus)
+    }
+
+    func tapPlusButton() {
+        operation(.plus)
+    }
+
+    func tapEqualButton() {
+        operation(currentOperator)
+    }
+
+    func tapDotButton() {
+        if displayValue.count < 9, !displayValue.contains(".") {
+            displayValue += displayValue.isEmpty ? "0." : "."
+            outputLabel = displayValue
+        }
+    }
+
+    func operation(_ operation: Operator) {
+        if self.currentOperator != .none {
+            if !displayValue.isEmpty {
+                secondOperand = displayValue
+                displayValue = ""
+                
+                guard let firstOperand = Double(firstOperand) else { return }
+                guard let secondOperand = Double(secondOperand) else { return }
+                
+                switch currentOperator {
+                case .divide:
+                    result = "\(firstOperand / secondOperand)"
+                case .multiply:
+                    result = "\(firstOperand * secondOperand)"
+                case .minus:
+                    result = "\(firstOperand - secondOperand)"
+                case .plus:
+                    result = "\(firstOperand + secondOperand)"
+                default:
+                    break
+                }
+                
+                if let result = Double(result), result.truncatingRemainder(dividingBy: 1) == 0 {
+                    self.result = "\(Int(result))"
+                }
+                
+                self.firstOperand = self.result
+                outputLabel = result
+            }
+            currentOperator = operation
+        } else {
+            firstOperand = displayValue
+            currentOperator = operation
+            displayValue = ""
+        }
+    }
 }
 
 struct CalculatorButton_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorButton()
+        CalculatorButton(outputLabel: .constant("1"))
     }
 }
