@@ -8,10 +8,12 @@ struct ContentView: View {
                 .ignoresSafeArea(.all)
             VStack {
                 Spacer()
-                Text("\(outputLabel)")
+                Text("\(numberFormat(number:Int(outputLabel)!))")
                     .foregroundColor(.white)
-                    .font(.system(size: 58))
+                    .font(.system(size: 90))
                     .frame(maxWidth: .infinity, alignment: .trailing)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                     .padding(.all, 16)
                 CalculatorButton(outputLabel: $outputLabel)
             }
