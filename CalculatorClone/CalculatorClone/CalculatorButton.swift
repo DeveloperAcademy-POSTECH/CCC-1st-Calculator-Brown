@@ -80,8 +80,16 @@ struct CalculatorButton: View {
                 displayValue += numberValue
                 outputLabel = displayValue
             } else {
-                displayValue += numberValue
-                outputLabel = displayValue
+                if displayValue == "0", numberValue == "0" {
+                    displayValue = "0"
+                    outputLabel = displayValue
+                } else {
+                    if displayValue == "0" {
+                        displayValue = ""
+                    }
+                    displayValue += numberValue
+                    outputLabel = displayValue
+                }
             }
         }
     }
