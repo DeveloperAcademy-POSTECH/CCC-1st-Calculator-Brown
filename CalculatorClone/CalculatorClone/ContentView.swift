@@ -8,7 +8,7 @@ struct ContentView: View {
                 .ignoresSafeArea(.all)
             VStack {
                 Spacer()
-                Text("\(numberFormat(number:Int(outputLabel)!))")
+                Text("\(numberFormat(number: Int(outputLabel)!))")
                     .foregroundColor(.white)
                     .font(.system(size: 90))
                     .frame(maxWidth: .infinity, alignment: .trailing)
