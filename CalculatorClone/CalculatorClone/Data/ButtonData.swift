@@ -20,6 +20,7 @@ enum CalculatorButtonContent: String {
     case clear = "clear"
     case dot = "dot"
     case negative = "negative"
+    case clearC = "clearC"
     
     var buttonColor: Color {
         switch self {

@@ -25,9 +25,15 @@ struct CalculatorButton: View {
                         Button(action: {
                             tapButton(button: content)
                         }, label: {
-                            Image(content.rawValue)
-                                .resizable()
-                                .frame(width: self.buttonWidth(content: content), height: self.buttonHeight())
+                            if content == .clear {
+                                Image(displayValue.isEmpty ? content.rawValue : CalculatorButtonContent.clearC.rawValue)
+                                    .resizable()
+                                    .frame(width: self.buttonWidth(content: content), height: self.buttonHeight())
+                            } else {
+                                Image(content.rawValue)
+                                    .resizable()
+                                    .frame(width: self.buttonWidth(content: content), height: self.buttonHeight())
+                            }
                         })
                     }
                 }
@@ -63,7 +69,7 @@ struct CalculatorButton: View {
             tapPercentButton()
         case .equal:
             tapEqualButton()
-        case .clear:
+        case .clear, .clearC:
             tapClearButton()
         case .dot:
             tapDotButton()
@@ -78,7 +84,6 @@ struct CalculatorButton: View {
             if displayValue == "-0" {
                 displayValue = displayValue.components(separatedBy: "0").joined()
                 displayValue += numberValue
-                outputLabel = displayValue
             } else {
                 if displayValue == "0", numberValue == "0" {
                     displayValue = "0"
