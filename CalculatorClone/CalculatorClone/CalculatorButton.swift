@@ -156,7 +156,11 @@ struct CalculatorButton: View {
                 
                 switch currentOperator {
                 case .divide:
-                    result = "\(firstOperand / secondOperand)"
+                    if secondOperand == 0.0 {
+                        result = "Error"
+                    } else {
+                        result = "\(firstOperand / secondOperand)"
+                    }
                 case .multiply:
                     result = "\(firstOperand * secondOperand)"
                 case .minus:
