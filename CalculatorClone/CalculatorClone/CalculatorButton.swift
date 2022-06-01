@@ -85,9 +85,8 @@ struct CalculatorButton: View {
                 displayValue = displayValue.components(separatedBy: "0").joined()
                 displayValue += numberValue
             } else {
-                if displayValue == "0", numberValue == "0" {
-                    displayValue = "0"
-                    outputLabel = displayValue
+                if outputLabel == "0", numberValue == "0" {
+                    displayValue = ""
                 } else {
                     if displayValue == "0" {
                         displayValue = ""
